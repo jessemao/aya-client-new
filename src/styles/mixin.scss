@@ -1,0 +1,25 @@
+@function rem($px) {
+  @return $px / 16 * 1rem;
+}
+
+@function vwd($px) {
+  @return $px / 1920 * 100vw;
+}
+
+@function vhd($px) {
+  @return $px / 1080 * 100vh;
+}
+
+@function vwm($px) {
+  @return $px / 375 * 100vw;
+}
+
+@function vhm($px) {
+  @return $px / 812 * 100vh;
+}
+
+$backgroundDefault: #F6F6F6;
+$themeRed: #621f30;
+$themeOrange: #e86a23;
+$cardBackground: #f0f2e5;
+$themeBlue: #0090FF;

@@ -1,0 +1,22 @@
+.compgroup {
+  &__row {
+    display: flex;
+
+  }
+
+  &__input {
+    flex: 1 1 70%;
+  }
+
+  &__handle {
+    flex: 1 1 30%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__action {
+    align-self: center;
+    margin: auto 10px;
+    cursor: pointer;
+  }
+}

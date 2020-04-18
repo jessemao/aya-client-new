@@ -1,0 +1,31 @@
+.item-list {
+  text-align: left; }
+  .item-list__table {
+    margin: 0 auto;
+    width: 1000px; }
+  .item-list .col-imagesId .ant-avatar {
+    width: 80px;
+    height: 80px; }
+    .item-list .col-imagesId .ant-avatar img {
+      width: 100%;
+      height: 100%; }
+  .item-list__title {
+    margin: 0 auto;
+    width: 1000px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 24px;
+    margin-bottom: 44px; }
+  .item-list__btn {
+    background: #0090FF;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px; }
+    .item-list__btn a {
+      color: white; }
+  .item-list .sperator {
+    color: #0090FF; }
