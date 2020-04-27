@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { getSearchQuery, toFixed } from '../../utils';
 import PageHeaderWrapper from '../../components/PageHeaderWrapper';
 import DescriptionCard from '../../components/DescriptionCard';
-import ConfirmModal from './components/ConfirmModal';
+import ConfirmModal from '../../components/ConfirmModal';
 import ReservationRecordStore from '../../stores/ReservationRecordStore';
 // import { EVENT_USER_STATUS, RESERVATION_STATUS } from '../../constants/status';
 
