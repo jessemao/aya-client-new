@@ -7,17 +7,17 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { observer } from 'mobx-react';
 
 // import { Link } from 'react-router-dom';
-import CommonListPage from '../../common/CommonListPage';
-import FormModal from '../../../components/FormModal';
-import StepFormModal from '../../../components/StepFormModal';
-import PageHeaderWrapper from '../../../components/PageHeaderWrapper';
-import MultiActionMenu from '../components/MultiActionMenu';
-import { useStores } from '../../../stores/hook';
+import CommonListPage from '../common/CommonListPage';
+import FormModal from '../../components/FormModal';
+import StepFormModal from '../../components/StepFormModal';
+import PageHeaderWrapper from '../../components/PageHeaderWrapper';
+import MultiActionMenu from '../../components/MultiActionMenu';
+import { useStores } from '../../stores/hook';
 
 import {
   ROLE_OPTION,
   ACCOUNT_KEY_VALUE,
-} from '../../../constants/status';
+} from '../../constants/status';
 
 
 const roleItemList = [
@@ -281,10 +281,6 @@ export default observer(() => {
     setMultiActionKey('');
   }, [multiActionKey]);
 
-  const handleSearch = (sq) => {
-    AccountStore.SetAttributeByName('currentPage', 1);
-    AccountStore.SetAttributeByName('searchQuery', sq);
-  };
 
   const createFormMethods = {
     onOk: (item) => {
@@ -337,7 +333,6 @@ export default observer(() => {
             menuList={multiMenuList}
           />
         )}
-        onSearch={handleSearch}
         onSelectRow={setSelectedRows}
         showCreateBtn
         onCreate={() => {

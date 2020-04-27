@@ -1,15 +1,27 @@
 import { isObject, NotUndefinedOrNull } from '.';
 
+function keyToNestedObject(stringKey, value) {
+  const stringSplits = stringKey.split('.').reverse();
+  const nestedObj = stringSplits.reduce((a, b) => ({
+    [b]: a,
+  }), value);
+
+  return nestedObj;
+}
+
 function FormatRequestData(data) {
-  const res = { ...data };
-  Object.keys(res).forEach((key) => {
-    if (!NotUndefinedOrNull(res[key])) {
+  let res = { };
+  Object.keys(data).forEach((key) => {
+    const keySplits = key.split('.');
+    const rootKey = keySplits[0];
+    res = { ...res, ...keyToNestedObject(key, data[key]) };
+    if (!NotUndefinedOrNull(res[rootKey])) {
       return;
     }
-    if (res[key].toHTML) {
-      res[key] = res[key].toHTML();
-    } else if (Array.isArray(res[key])) {
-      res[key] = res[key].map((item) => {
+    if (res[rootKey].toHTML) {
+      res[rootKey] = res[rootKey].toHTML();
+    } else if (Array.isArray(res[rootKey])) {
+      res[rootKey] = res[rootKey].map((item) => {
         if (!item) {
           return null;
         }
@@ -19,9 +31,9 @@ function FormatRequestData(data) {
         }
         return item;
       });
-    } else if (isObject(res[key])) {
+    } else if (isObject(res[rootKey])) {
       if (key.indexOf('Id') > -1) {
-        res[key] = res[key]._id;
+        res[rootKey] = res[rootKey]._id;
       }
     }
   });

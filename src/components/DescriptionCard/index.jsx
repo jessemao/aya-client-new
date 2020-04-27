@@ -8,13 +8,15 @@ import {
 } from 'antd';
 import React, { Component, Fragment } from 'react';
 
-import { GetValueByKey, getComponent } from '../../utils/component-map';
+import { getComponent } from '../../utils/component-map';
 
 import styles from './index.module.less';
+import { GetValueByKey } from '../../utils';
 
 const DescriptionsItem = Descriptions.Item;
 
 const FormItem = Form.Item;
+
 
 class DescriptionCard extends Component {
   formRef = React.createRef();
@@ -69,10 +71,9 @@ class DescriptionCard extends Component {
   renderInfo(fields) {
     const { selectedItem } = this.props;
     const { editState } = this.state;
-    if (!(selectedItem && selectedItem._id)) {
+    if (!(selectedItem && Object.keys(selectedItem).length)) {
       return (<div />);
     }
-
     return fields.map((info) => {
       let itemValue = GetValueByKey(selectedItem, info.key);
 
@@ -81,7 +82,6 @@ class DescriptionCard extends Component {
       }
 
       const render = editState ? info.render : info.viewRender;
-
       const content = render ? render(itemValue, { form: this.formRef.current, data: selectedItem }) : itemValue;
 
       const itemLabelAndLayout = { wrapperCol: { span: 24 }, ...info.layout };

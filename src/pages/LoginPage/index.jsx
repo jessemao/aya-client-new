@@ -37,6 +37,11 @@ const UserLogin = (props) => {
     history.push(redirectUrl);
   };
 
+  const handleSendCaptcha = (mobile) => {
+    LoginStore.HandleGetSMSCode(mobile);
+  };
+
+
   const handleSubmit = (values) => {
     LoginStore.HandleLocalLogin(values);
   };
@@ -56,11 +61,11 @@ const UserLogin = (props) => {
             <div className={styles.header}>
               {/* <img className={styles.logo} src={LogoImg} alt="logo" /> */}
               <span className={styles.title}>
-                aya
+                M Lounge
               </span>
             </div>
             <div className={styles.desc}>
-              资金管理系统
+              管理系统
             </div>
             <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
               <Tab key="account" tab="账户密码登录">
@@ -113,6 +118,7 @@ const UserLogin = (props) => {
                   countDown={120}
                   getCaptchaButtonText=""
                   getCaptchaSecondText="秒"
+                  onSendCaptcha={handleSendCaptcha}
                   rules={[
                     {
                       required: true,
@@ -134,12 +140,17 @@ const UserLogin = (props) => {
                 </a>
               </div>
               <Submit loading={submitting}>登录</Submit>
-              <div className={styles.other}>
-                其他登录方式
-                <AlipayCircleOutlined className={styles.icon} />
-                <TaobaoCircleOutlined className={styles.icon} />
-                <WeiboCircleOutlined className={styles.icon} />
-              </div>
+              {
+                /*
+                  <div className={styles.other}>
+                    其他登录方式
+                    <AlipayCircleOutlined className={styles.icon} />
+                    <TaobaoCircleOutlined className={styles.icon} />
+                    <WeiboCircleOutlined className={styles.icon} />
+                  </div>
+                */
+              }
+
             </LoginFrom>
           </div>
         </div>

@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import { getComponent } from '../../utils/component-map';
 import { getFormInitValue } from '../../utils';
 
-const FormItem = Form.Item;
 const { Step } = Steps;
 
 class StepFormModal extends Component {
@@ -74,12 +73,13 @@ class StepFormModal extends Component {
 
   handleNext = (currentStep) => {
     const {
-      onOk, formItemMap, onModalVisible, onNext,
+      onOk, formItemMap, onModalVisible, onNext, value: propsValue,
     } = this.props;
     const { value: oldValue } = this.state;
     const stepLength = Object.keys(formItemMap).length;
     this.formRef.current.validateFields().then((fieldsValue) => {
       const value = { ...oldValue, ...fieldsValue };
+
       this.setState(
         {
           value,
@@ -111,7 +111,10 @@ class StepFormModal extends Component {
   };
 
   forward = () => {
+    const { value, formItemMap } = this.props;
     const { currentStep } = this.state;
+    const initialValues = getFormInitValue(formItemMap[currentStep + 1], value);
+    this.formRef.current.setFieldsValue(initialValues);
     this.setState({
       currentStep: currentStep + 1,
     });
@@ -186,14 +189,7 @@ class StepFormModal extends Component {
       ...this.formLayout,
       ...layout,
     };
-    return (
-      <FormItem
-        name={item.key}
-        {...itemLabelAndLayout}
-      >
-        {getComponent(item)}
-      </FormItem>
-    );
+    return getComponent(item, { name: item.key, ...itemLabelAndLayout });
   })
 
   render() {
@@ -203,6 +199,7 @@ class StepFormModal extends Component {
     const { currentStep } = this.state;
 
     const initialValues = getFormInitValue(formItemMap[currentStep], value);
+
     return (
       <Modal
         {...rest}
@@ -214,6 +211,7 @@ class StepFormModal extends Component {
         footer={this.renderFooter(currentStep)}
         onCancel={() => onModalVisible({ visible: false })}
         afterClose={() => onModalVisible({ visible: false })}
+        getContainer={false}
       >
         <Steps style={{ marginBottom: 28 }} size="small" current={currentStep}>
           {stepTitle.map((sTitle) => <Step title={sTitle} key={sTitle} />)}

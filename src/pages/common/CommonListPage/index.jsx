@@ -96,9 +96,12 @@ class CommonListPage extends Component {
   };
 
   handleSearch = () => {
-    const { onSearch } = this.props;
+    const { onSearch, store } = this.props;
+    const value = this.formRef.current.getFieldsValue();
+    store.SetAttributeByName('currentPage', 1);
+    store.SetAttributeByName('searchQuery', value);
+    store.Search(value);
     if (onSearch) {
-      const value = this.formRef.current.getFieldsValue();
       onSearch(value);
     }
   };
@@ -142,11 +145,9 @@ class CommonListPage extends Component {
 
               return (
                 <Col md={8} sm={12}>
-                  <FormItem label={title} name={key}>
-                    {
-                      getComponent(rest)
-                    }
-                  </FormItem>
+                  {
+                    getComponent(rest, { label: title, name: key })
+                  }
                 </Col>
               );
             })

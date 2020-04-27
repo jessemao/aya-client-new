@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { getComponent } from '../../../utils/component-map';
-import { isObject } from '../../../utils';
 
 class MapComponent extends Component {
   constructor(props) {
@@ -22,25 +21,22 @@ class MapComponent extends Component {
 
   handleChange(val, options) {
     const { onChange } = this.props;
-    this.formatValue(val, options);
-    onChange(this.state, options);
+    const updatedValue = this.formatValue(val, options);
+    onChange(updatedValue, options);
   }
 
   render() {
-    const { children, ...others } = this.props;
+    const { childComponent, ...others } = this.props;
     return (
       <div className="common-map">
         {
-          children.map((compProps) => {
+          childComponent.map((compProps) => {
             const specificProps = {
-              onChange: this.handleChange,
-              'data-key': compProps.key,
-              'data-index': others['data-index'],
+              onChange: (val) => this.handleChange(val, { ...compProps, index: others['data-index'] }),
               className: 'common-item-row',
               value: this.state[compProps.key],
             };
-            const customProps = Object.assign({}, compProps, specificProps);
-
+            const customProps = { ...compProps, ...specificProps };
             return getComponent(customProps);
           })
         }

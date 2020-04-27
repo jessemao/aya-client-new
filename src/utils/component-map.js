@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'antd';
 import InputNumber from '../components/basic/input-number';
 import InputPassword from '../components/basic/input-password';
 import Button from '../components/basic/button';
@@ -18,8 +19,12 @@ import GroupComponent from '../components/basic/component-group';
 import MapComponent from '../components/basic/map';
 import KeyValuePairComponent from '../components/basic/key-value-pair';
 import CascadeComponent from '../components/basic/cascade';
+import TimePicker from '../components/basic/time-picker';
+import Span from '../components/basic/span';
 import CheckboxWrapper from '../components/basic/checkbox';
-import { GetValueByKey } from '.';
+
+const FormItem = Form.Item;
+
 
 function getTextArea(props) {
   const {
@@ -43,11 +48,8 @@ function getTextArea(props) {
 }
 
 function getSpan(props) {
-  const { key, data } = props;
-  const value = GetValueByKey(data, key);
-
   return (
-    <span>{value}</span>
+    <Span {...props} />
   );
 }
 
@@ -234,6 +236,12 @@ function getDatepicker(props) {
   );
 }
 
+function getTimePicker(props) {
+  return (
+    <TimePicker {...props} />
+  );
+}
+
 function getTable(props) {
   return (
     <Table
@@ -272,68 +280,56 @@ function getKeyValuePair(props) {
   );
 }
 
-const getComponent = (props) => {
+const getComponent = (props, formProps) => {
   const {
     compType, initialValue, viewRender, ...others
   } = props;
 
+  let Comp = null;
   if (compType === 'map') {
-    return getMap(others);
+    Comp = getMap(others);
+  } else if (compType === 'span') {
+    Comp = getSpan(others);
+  } else if (compType === 'button') {
+    Comp = getButton(others);
+  } else if (compType === 'input') {
+    Comp = getInput(others);
+  } else if (compType === 'textarea') {
+    Comp = getTextArea(others);
+  } else if (compType === 'image') {
+    Comp = getImage(others);
+  } else if (compType === 'imagePicker') {
+    Comp = getImagePicker(others);
+  } else if (compType === 'richtext') {
+    Comp = getRichText(others);
+  } else if (compType === 'checkbox') {
+    Comp = getCheckbox(others);
+  } else if (compType === 'file') {
+    Comp = getFiles(others);
+  } else if (compType === 'select') {
+    Comp = getSelect(others);
+  } else if (compType === 'switch') {
+    Comp = getSwitch(others);
+  } else if (compType === 'label') {
+    Comp = getLabel(others);
+  } else if (compType === 'date') {
+    Comp = getDatepicker(others);
+  } else if (compType === 'time') {
+    Comp = getTimePicker(others);
+  } else if (compType === 'table') {
+    Comp = getTable(others);
+  } else if (compType === 'cascade') {
+    Comp = getCascade(others);
+  } else if (compType === 'keyValuePair') {
+    Comp = getKeyValuePair(others);
   }
-  if (compType === 'span') {
-    return getSpan(others);
-  }
-  if (compType === 'button') {
-    return getButton(others);
-  }
-  if (compType === 'input') {
-    return getInput(others);
-  }
-  if (compType === 'textarea') {
-    return getTextArea(others);
-  }
-  if (compType === 'image') {
-    return getImage(others);
-  }
-
-  if (compType === 'imagePicker') {
-    return getImagePicker(others);
-  }
-
-  if (compType === 'richtext') {
-    return getRichText(others);
-  }
-  if (compType === 'checkbox') {
-    return getCheckbox(others);
-  }
-  if (compType === 'file') {
-    return getFiles(others);
-  }
-  if (compType === 'select') {
-    return getSelect(others);
-  }
-  if (compType === 'switch') {
-    return getSwitch(others);
-  }
-  if (compType === 'label') {
-    return getLabel(others);
-  }
-  if (compType === 'date') {
-    return getDatepicker(others);
-  }
-  if (compType === 'table') {
-    return getTable(others);
-  }
-
-  if (compType === 'cascade') {
-    return getCascade(others);
-  }
-
-  if (compType === 'keyValuePair') {
-    return getKeyValuePair(others);
-  }
-
-  return null;
+  return (
+    <FormItem
+      {...formProps}
+    >
+      {Comp}
+    </FormItem>
+  );
 };
 
 

@@ -119,7 +119,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'GET',
-        url: `/api/${apiUrlPrefix}/${id}`,
+        url: `/api/admin/${apiUrlPrefix}/${id}`,
       });
     } catch (e) {
       res = e;
@@ -154,7 +154,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'GET',
-        url: `/api/${apiPrefix}`,
+        url: `/api/admin/${apiPrefix}`,
         params,
       });
     } catch (e) {
@@ -199,7 +199,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'PUT',
-        url: `/api/${apiPrefix}/review`,
+        url: `/api/admin/${apiPrefix}/review`,
         data: {
           idList: selectedIds,
           status: 1,
@@ -234,7 +234,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'DELETE',
-        url: `/api/${apiPrefix}`,
+        url: `/api/admin/${apiPrefix}`,
         data: {
           idList: selectedIds,
           pagination: {
@@ -261,7 +261,7 @@ class BaseStore {
     let res = {};
     try {
       res = await fetch({
-        url: `/api/${this.urlPrefix}/download/template`,
+        url: `/api/admin/${this.urlPrefix}/download/template`,
         method: 'GET',
         responseType: 'arraybuffer',
       });
@@ -280,7 +280,7 @@ class BaseStore {
     let res = {};
     try {
       res = await fetch({
-        url: `/api/${this.urlPrefix}/download`,
+        url: `/api/admin/${this.urlPrefix}/download`,
         method: 'GET',
         responseType: 'arraybuffer',
         params: {
@@ -309,7 +309,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'PUT',
-        url: `/api/${apiPrefix}`,
+        url: `/api/admin/${apiPrefix}`,
         data: {
           query,
           data: formatData,
@@ -354,7 +354,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'PUT',
-        url: `/api/${apiPrefix}/${itemId}`,
+        url: `/api/admin/${apiPrefix}/${itemId}`,
         data: requestData,
         headers: {
           'content-type': 'application/json',
@@ -399,7 +399,7 @@ class BaseStore {
     try {
       res = await fetch({
         method: 'POST',
-        url: `/api/${apiPrefix}`,
+        url: `/api/admin/${apiPrefix}`,
         data: requestData,
         headers: {
           'content-type': 'application/json',
@@ -415,19 +415,20 @@ class BaseStore {
       } else {
         asyncFeedback.success('Succeed!');
 
-        if (withPagination) {
-          this.updateTableList(res.data.data);
-        } else {
-          this.itemList = [...this.itemList, res.data.data];
-          this.itemListFlat = [...this.itemList, res.data.data];
-          this.selectedItem = res.data.data;
-        }
+        // if (withPagination) {
+        //   this.updateTableList(res.data.data);
+        // } else {
+        //   this.itemList = [...this.itemList, res.data.data];
+        //   this.itemListFlat = [...this.itemList, res.data.data];
+        // }
+        this.selectedItem = res.data.data;
 
         if (this.onPostItem) {
           this.onPostItem(res.data.data);
         }
       }
     });
+    this.Search();
   }
 
   @action Search = async (query = this.searchQuery, { urlPrefix = '' } = {}) => {

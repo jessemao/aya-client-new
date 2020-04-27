@@ -29,16 +29,6 @@ const ACCOUNT_KEY_VALUE = {
   50: '访客',
 };
 
-
-const COMMUTE_TYPE_NAME = {
-  1: '自驾',
-  2: '打车',
-  3: '地铁',
-  4: '公交',
-  5: '骑车',
-  6: '步行',
-};
-
 const ROLE_OPTION = Object.keys(ACCOUNT_KEY_VALUE).map((key) => ({
   key,
   value: ACCOUNT_KEY_VALUE[key],
@@ -107,7 +97,6 @@ export {
   REVIEW_STATUS_MAP,
   REVIEW_STATUS_LIST,
   ROLE_OPTION,
-  COMMUTE_TYPE_NAME,
   ACCESS_ROLE,
   USER_TYPE,
   ACCESS_LEVEL,

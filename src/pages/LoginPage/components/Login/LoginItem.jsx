@@ -42,16 +42,12 @@ const LoginItem = (props) => {
     updateActive,
     type,
     tabUtil,
+    onSendCaptcha,
     ...restProps
   } = props;
   const onGetCaptcha = useCallback(async (mobile) => {
-    const result = '';
-
-    if (result === false) {
-      return;
-    }
-
-    message.success('获取验证码成功！验证码为：1234');
+    message.success('验证码已发送');
+    onSendCaptcha(mobile);
     setTiming(true);
   }, []);
   useEffect(() => {

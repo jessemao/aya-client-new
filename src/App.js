@@ -16,42 +16,42 @@ import RightContent from './components/GlobalHeaderContent/RightContent';
 import SideMenu from './components/SideMenu';
 import PrivateRoute from './components/PrivateRoute';
 import { SUB_NAV_ROUTES, NAV_ROUTES } from './constants';
-import accountStore from './stores/AccountStore';
-import globalStore from './stores/GlobalStore';
-
-import loginStore from './stores/LoginStore';
-import AccountListPage from './pages/editPages/AccountListPage';
+import AccountStore from './stores/AccountStore';
+import GlobalStore from './stores/GlobalStore';
+import LoginStore from './stores/LoginStore';
+import AccountListPage from './pages/AccountListPage';
 import LoginPage from './pages/LoginPage';
-import OverallPage from './pages/OverallPage';
-import CreditPage from './pages/CreditPage';
 import History from './components/History';
 import NoAccessPage from './pages/NoAccessPage';
-import EditCreditPage from './pages/editPages/EditCreditPage';
-import EditLocPage from './pages/editPages/EditLocPage';
-import EditStandbyLocPage from './pages/editPages/EditStandbyLocPage';
-import EditExposurePage from './pages/editPages/EditExposurePage';
-import EditGuarantyCustomsPage from './pages/editPages/EditGuarantyCustomsPage';
-
+import BuildingListPage from './pages/BuildingListPage';
+import BuildingAccountListPage from './pages/BuildingAccountListPage';
+import DoorAccountListPage from './pages/DoorAccountListPage';
+import DoorDeviceListPage from './pages/DoorDeviceListPage';
+import ReservationListPage from './pages/ReservationListPage';
+import ReservationRefundPage from './pages/ReservationRefundPage';
+import ReservationRefundListPage from './pages/ReservationRefundListPage';
+import StoreListPage from './pages/StoreListPage';
+import StorePriceListPage from './pages/StorePriceListPage';
 
 @observer
 class App extends Component {
   componentDidMount() {
-    accountStore.GetUserInfo();
+    AccountStore.GetUserInfo();
   }
 
   render() {
-    const { collapsed, collapseSideMenu } = globalStore;
-    const { currentUser } = accountStore;
+    const { collapsed, collapseSideMenu } = GlobalStore;
+    const { currentUser } = AccountStore;
     return (
       <Router history={History}>
         <Route
-          data-login-status={loginStore.isLogin}
+          data-login-status={LoginStore.isLogin}
           render={({ location }) => (
             <div className="App">
               <Route
                 exact
                 path="/"
-                render={() => <Redirect to={NAV_ROUTES.OVERALL_PAGE.path} />}
+                render={() => <Redirect to={SUB_NAV_ROUTES.STORE_LIST.path} />}
               />
               <Switch location={location}>
                 {/* login */}
@@ -74,14 +74,16 @@ class App extends Component {
                         <Switch location={location}>
                           {/* login */}
                           <PrivateRoute component={AccountListPage} path={SUB_NAV_ROUTES.ACCOUNT_LIST.path} />
+                          <PrivateRoute component={BuildingListPage} path={SUB_NAV_ROUTES.BUILDING_LIST.path} />
+                          <PrivateRoute component={BuildingAccountListPage} path={SUB_NAV_ROUTES.BUILDING_ACCOUNT_LIST.path} />
+                          <PrivateRoute component={StoreListPage} path={SUB_NAV_ROUTES.STORE_LIST.path} />
+                          <PrivateRoute component={StorePriceListPage} path={SUB_NAV_ROUTES.STORE_PRICE_LIST.path} />
+                          <PrivateRoute component={ReservationListPage} path={SUB_NAV_ROUTES.RESERVATION_GROUP.path} />
+                          <PrivateRoute component={ReservationRefundPage} path={SUB_NAV_ROUTES.RESERVATION_REFUND_PAGE.path} />
+                          <PrivateRoute component={ReservationRefundListPage} path={SUB_NAV_ROUTES.RESERVATION_REFUND_LIST_PAGE.path} />
+                          <PrivateRoute component={DoorAccountListPage} path={SUB_NAV_ROUTES.DOOR_ACCOUNT_LIST.path} />
+                          <PrivateRoute component={DoorDeviceListPage} path={SUB_NAV_ROUTES.DOOR_DEVICE_LIST.path} />
                           <Route component={NoAccessPage} path={SUB_NAV_ROUTES.NO_ACCESS.path} />
-                          <PrivateRoute component={OverallPage} path={NAV_ROUTES.OVERALL_PAGE.path} />
-                          <PrivateRoute component={CreditPage} path={NAV_ROUTES.CREDIT_PAGE.path} />
-                          <PrivateRoute component={EditCreditPage} path={SUB_NAV_ROUTES.EDIT_CREDIT_PAGE.path} />
-                          <PrivateRoute component={EditLocPage} path={SUB_NAV_ROUTES.EDIT_LOC_PAGE.path} />
-                          <PrivateRoute component={EditStandbyLocPage} path={SUB_NAV_ROUTES.EDIT_STANDBY_LOC_PAGE.path} />
-                          <PrivateRoute component={EditExposurePage} path={SUB_NAV_ROUTES.EDIT_EXPOSURE_PAGE.path} />
-                          <PrivateRoute component={EditGuarantyCustomsPage} path={SUB_NAV_ROUTES.EDIT_GUARANTY_CUSTOMS_PAGE.path} />
                         </Switch>
                       </Suspense>
                     </Layout>

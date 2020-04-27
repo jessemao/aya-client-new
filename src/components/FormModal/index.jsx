@@ -1,10 +1,8 @@
 import { Form, Modal } from 'antd';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { getComponent } from '../../utils/component-map';
 import { getFormInitValue } from '../../utils';
-
-const FormItem = Form.Item;
 
 const FormModal = (props) => {
   const [form] = Form.useForm();
@@ -18,6 +16,8 @@ const FormModal = (props) => {
     layout = {},
     formItemList = [],
   } = props;
+
+  const [initialed, setInitialed] = useState(false);
 
   const okHandle = () => {
     form.validateFields().then((values) => {
@@ -33,21 +33,32 @@ const FormModal = (props) => {
       wrapperCol: { span: 15 },
       ...customLayout,
     };
-    return (
-      <FormItem
-        name={item.key}
-        {...itemLabelAndLayout}
-      >
-        {getComponent(item)}
-      </FormItem>
-    );
+    return getComponent(item, { name: item.key, ...itemLabelAndLayout });
   });
 
   const initialValues = getFormInitValue(formItemList, value);
+  // form.setFieldsValue(initialValues);
+
+  useEffect(() => {
+    if (initialed) {
+      form.setFieldsValue(initialValues);
+    }
+  }, [JSON.stringify(value), initialed]);
+
+  useEffect(() => {
+    if (modalVisible) {
+      setInitialed(true);
+    } else {
+      const emptyValues = getFormInitValue(formItemList, {});
+      form.setFieldsValue(emptyValues);
+    }
+  }, [modalVisible]);
+
   return (
     <Modal
       {...props}
       destroyOnClose
+      getContainer={false}
       title={title}
       visible={modalVisible}
       onOk={okHandle}
@@ -61,7 +72,6 @@ const FormModal = (props) => {
             props.onValuesChange(changedValue, values);
           }
         }}
-
       >
         {FormItemDOMList(formItemList, layout)}
       </Form>

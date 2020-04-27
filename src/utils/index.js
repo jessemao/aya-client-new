@@ -1,6 +1,7 @@
 import { pathToRegexp } from 'path-to-regexp';
 import numeral from 'numeral';
 import moment from 'moment';
+import BraftEditor from 'braft-editor';
 
 const getSearchQuery = (key) => {
   const searchUrl = window.location.search;
@@ -21,7 +22,8 @@ const getSearchQuery = (key) => {
 function getFormInitValue(formList, valueMap = {}) {
   const initValues = {};
   formList.forEach((item) => {
-    initValues[item.key] = GetValueByKey(valueMap, item.key);
+    const value = GetValueByKey(valueMap, item.key);
+    initValues[item.key] = value;
   });
   return initValues;
 }
@@ -401,12 +403,12 @@ export {
   MoveItemForward,
   debounce,
   toFixed,
-  getFormInitValue,
   getDynamicStackGroupBarSeries,
   getDynamicPieSeries,
   getDynamicBarSeries,
   getColumnsForTable,
   getColumnsForModal,
   GetValueByKey,
+  getFormInitValue,
   downloadFile,
 };

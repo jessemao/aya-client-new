@@ -1,5 +1,7 @@
+import { PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
+
 import React, { Component } from 'react';
-import { Row, Col, Icon } from 'antd';
+import { Row, Col } from 'antd';
 import './index.css';
 import { isObject } from '../../../utils';
 
@@ -34,13 +36,13 @@ class GroupComponent extends Component {
       if (!Object.keys(value).length) {
         return [''];
       }
-      return Object.keys(value).map(key => ({
+      return Object.keys(value).map((key) => ({
         [key]: value[key],
       }));
     }
 
     if (Array.isArray(value) && value.length) {
-      return value.map(item => item);
+      return value.map((item) => item);
     }
     return [''];
   }
@@ -62,7 +64,7 @@ class GroupComponent extends Component {
     const tempValue = this.state.value;
     const { index } = options;
     const changeValue = val;
-    tempValue[index] = changeValue;
+    tempValue[index] = { ...tempValue[index], ...changeValue };
     this.setState({
       value: tempValue,
     });
@@ -122,17 +124,15 @@ class GroupComponent extends Component {
         >
           {
             value.length > 1 && (
-            <Icon
+            <MinusCircleOutlined
               className="compgroup__remove compgroup__action"
-              type="minus"
               data-index={index}
               onClick={this.handleClickRemove}
             />
             )
           }
-          <Icon
+          <PlusCircleOutlined
             className="compgroup__add compgroup__action"
-            type="plus"
             onClick={this.handleClickAdd}
           />
         </Col>
