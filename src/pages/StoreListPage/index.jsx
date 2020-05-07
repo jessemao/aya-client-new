@@ -399,7 +399,7 @@ export default observer(() => {
     },
     onOk: (values) => {
       setWorkinghourVisible(false);
-      StoreStore.PutItemRequest(selectedItem._id, updatedValue);
+      StoreStore.PutItemRequest(selectedItem._id, values);
     },
   };
 

@@ -316,6 +316,7 @@ export default observer(() => {
   const roleFormMethods = {
     onModalVisible: () => setRoleVisible(false),
     onOk: () => {
+      setRoleVisible(false);
       AccountStore.PutItemRequest(selectedItem._id, updatedValue);
     },
   };

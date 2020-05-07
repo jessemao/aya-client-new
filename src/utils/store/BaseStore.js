@@ -252,7 +252,7 @@ class BaseStore {
         this.handleErrors(res, { shouldRedirect: false });
       } else {
         asyncFeedback.success('Succeed!');
-        this.itemList = this.itemList.filter((item) => !selectedIds.includes(item._id));
+        this.Search();
       }
     });
   }
@@ -330,6 +330,7 @@ class BaseStore {
       } else {
         asyncFeedback.success('Succeed!');
         this.selectedItem = res.data.data;
+        this.Search();
       }
     });
   }
@@ -371,11 +372,8 @@ class BaseStore {
         this.onPutItem(res.data.data);
       } else {
         asyncFeedback.success('Succeed!');
-        if (withPagination) {
-          this.updateTableList(res.data.data);
-        } else {
-          this.selectedItem = res.data.data;
-        }
+        this.selectedItem = res.data.data;
+        this.Search();
       }
     });
   }
@@ -422,7 +420,7 @@ class BaseStore {
         //   this.itemListFlat = [...this.itemList, res.data.data];
         // }
         this.selectedItem = res.data.data;
-
+        this.Search();
         if (this.onPostItem) {
           this.onPostItem(res.data.data);
         }

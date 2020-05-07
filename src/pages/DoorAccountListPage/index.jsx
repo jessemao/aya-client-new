@@ -16,7 +16,7 @@ import {
 } from '../../constants/status';
 import PageHeaderWrapper from '../../components/PageHeaderWrapper';
 import {
-  QRCODE_TYPE_OPTION, QRCODE_TYPE_NAME, DOOR_ACCESS_STATUS, DOOR_ACCESS_STATUS_NAME, QRCODE_TYPE,
+  QRCODE_TYPE_OPTION, QRCODE_TYPE_NAME, DOOR_ACCESS_STATUS, DOOR_ACCESS_STATUS_NAME, QRCODE_TYPE, DOOR_ACCESS_STATUS_OPTION,
 } from '../../constants/door';
 
 const searchItemList = [
@@ -99,18 +99,17 @@ const reviewFormList = [
     asyncUrl: '/api/admin/door-device/option',
   },
   {
-    key: 'accountId.basicInfo.fullname',
+    key: 'accountId._id',
     title: '用户',
-    compType: 'span',
+    showSearch: true,
+    compType: 'select',
+    asyncUrl: '/api/admin/door-device/account-option',
   },
   {
     key: 'status',
     title: '审核状态',
     compType: 'select',
-    option: Object.keys(REVIEW_STATUS_MAP).map((key) => ({
-      key,
-      value: REVIEW_STATUS_MAP[key],
-    })),
+    option: DOOR_ACCESS_STATUS_OPTION,
   },
 ];
 
@@ -121,9 +120,11 @@ const accessTypeFormList = [
     compType: 'span',
   },
   {
-    key: 'accountId.basicInfo.fullname',
+    key: 'accountId._id',
     title: '用户',
-    compType: 'span',
+    showSearch: true,
+    compType: 'select',
+    asyncUrl: '/api/admin/door-device/account-option',
   },
   {
     key: 'type',

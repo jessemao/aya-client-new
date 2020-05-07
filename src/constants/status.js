@@ -17,6 +17,7 @@ const ACCOUNT_ROLE = {
   ADMIN: 10,
   PLATFORM: 20,
   USER: 40,
+  AGENT: 49,
   GUEST: 50,
 };
 
@@ -26,6 +27,7 @@ const ACCOUNT_KEY_VALUE = {
   10: '管理员',
   20: '运营人员',
   40: '普通用户',
+  49: '经纪人',
   50: '访客',
 };
 
