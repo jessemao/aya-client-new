@@ -3,7 +3,6 @@ import {
 } from 'antd';
 import React, { useEffect, useState, Fragment } from 'react';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import CommonListPage from '../common/CommonListPage';
 import MultiActionMenu from '../../components/MultiActionMenu';
 import { useStores } from '../../stores/hook';
@@ -12,25 +11,6 @@ import {
   EVENT_USER_STATUS,
 } from '../../constants/order';
 import PageHeaderWrapper from '../../components/PageHeaderWrapper';
-import { SUB_NAV_ROUTES } from '../../constants';
-
-
-// const searchItemList = [
-//   {
-//     key: 'name',
-//     title: '名称',
-//     compType: 'input',
-//     allowClear: true,
-//     placeholder: '输入活动名',
-//   },
-//   {
-//     key: 'address',
-//     title: '地址',
-//     compType: 'input',
-//     allowClear: true,
-//     placeholder: '输入活动地址',
-//   },
-// ];
 
 const multiMenuList = [
   {
@@ -39,17 +19,21 @@ const multiMenuList = [
   },
 ];
 
-
 export default observer(() => {
   const { ReservationRecordStore } = useStores();
   // const [reviewVisible, setReviewVisible] = useState(false);
-  // const [selectedItem, setSelectedItem] = useState({});
+  const [selectedItem, setSelectedItem] = useState({});
   const [multiActionKey, setMultiActionKey] = useState('');
+  const [cancelVisible, setCancelVisible] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   // const [updatedValue, setUpdatedValue] = useState({});
   const { searchQuery, currentPage, pageSize } = ReservationRecordStore;
 
   const columns = [
+    {
+      title: '预约时间',
+      dataIndex: 'name',
+    },
     {
       title: '场地',
       dataIndex: ['storeId', 'name'],
@@ -75,25 +59,17 @@ export default observer(() => {
       title: '操作',
       render: (text, record) => (
         <Fragment>
-          <Link
-            to={`${SUB_NAV_ROUTES.RESERVATION_REFUND_PAGE.path}?id=${record._id}`}
+          <a onClick={() => {
+            setCancelVisible(true);
+            setSelectedItem(record);
+          }}
           >
-            取消/退押金
-          </Link>
+            取消
+          </a>
         </Fragment>
       ),
     },
   ];
-
-
-  // const reviewFormMethods = {
-  //   onModalVisible: () => setReviewVisible(false),
-  //   onOk: () => {
-  //     setReviewVisible(false);
-  //     ReservationRecordStore.PutItemRequest(selectedItem._id, updatedValue);
-  //   },
-  // };
-
 
   useEffect(() => {
     ReservationRecordStore.Search(searchQuery);
@@ -112,6 +88,20 @@ export default observer(() => {
     }
     setMultiActionKey('');
   }, [multiActionKey]);
+
+  useEffect(() => {
+    if (cancelVisible) {
+      Modal.confirm({
+        title: '是否取消',
+        content: `是否取消 - 场地${selectedItem.storeId.name} - ${selectedItem.name}的预约`,
+        onOk: () => {
+          // ReservationRecordStore.PutItemByQuery({_id: selectedItem._id}, )
+          setCancelVisible(false);
+        },
+
+      });
+    }
+  }, [cancelVisible]);
 
   return (
     <PageHeaderWrapper>
