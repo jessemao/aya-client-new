@@ -27,6 +27,7 @@ import BuildingListPage from './pages/BuildingListPage';
 import BuildingAccountListPage from './pages/BuildingAccountListPage';
 import DoorAccountListPage from './pages/DoorAccountListPage';
 import DoorDeviceListPage from './pages/DoorDeviceListPage';
+import EventListPage from './pages/EventListPage';
 import ReservationListPage from './pages/ReservationListPage';
 import ReservationRefundPage from './pages/ReservationRefundPage';
 import ReservationRefundListPage from './pages/ReservationRefundListPage';
@@ -83,6 +84,7 @@ class App extends Component {
                           <PrivateRoute component={ReservationRefundListPage} path={SUB_NAV_ROUTES.RESERVATION_REFUND_LIST_PAGE.path} />
                           <PrivateRoute component={DoorAccountListPage} path={SUB_NAV_ROUTES.DOOR_ACCOUNT_LIST.path} />
                           <PrivateRoute component={DoorDeviceListPage} path={SUB_NAV_ROUTES.DOOR_DEVICE_LIST.path} />
+                          <PrivateRoute component={EventListPage} path={SUB_NAV_ROUTES.EVENT_LIST.path} />
                           <Route component={NoAccessPage} path={SUB_NAV_ROUTES.NO_ACCESS.path} />
                         </Switch>
                       </Suspense>

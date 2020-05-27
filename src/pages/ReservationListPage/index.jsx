@@ -139,7 +139,6 @@ export default observer(() => {
     },
   };
 
-  console.log('sss', selectedQrcode);
   return (
     <PageHeaderWrapper>
       <CommonListPage

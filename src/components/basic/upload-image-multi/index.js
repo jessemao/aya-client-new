@@ -122,7 +122,7 @@ class UploadImageMulti extends Component {
           fileList,
         });
         if (onChange) {
-          onChange(fileList);
+          onChange(fileList.map((item) => item.ossUrl));
         }
       });
     };

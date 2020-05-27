@@ -25,6 +25,10 @@ const SUB_NAV_ROUTES = {
     path: '/door/door-account-list',
     name: '门禁权限',
   },
+  EVENT_LIST: {
+    path: '/event/event-list',
+    name: '列表',
+  },
   STORE_LIST: {
     path: '/store/store-list',
     name: '场地列表',
@@ -82,6 +86,14 @@ const NAV_ROUTES = {
     children: [
       SUB_NAV_ROUTES.RESERVATION_GROUP,
       SUB_NAV_ROUTES.RESERVATION_REFUND_LIST_PAGE,
+    ],
+  },
+  EVENT_GROUP: {
+    path: '/event',
+    name: '活动',
+    accessRole: ACCOUNT_ROLE.PLATFORM,
+    children: [
+      SUB_NAV_ROUTES.EVENT_LIST,
     ],
   },
   // EDITABLE_PAGE: {

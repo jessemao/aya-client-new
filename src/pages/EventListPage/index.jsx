@@ -39,12 +39,61 @@ const formItemList = [
   {
     key: 'name',
     title: '名称',
-    compType: 'span',
+    compType: 'input',
   },
   {
-    key: 'isSelective',
-    title: '是否精选',
-    compType: 'switch',
+    key: 'address',
+    title: '地址',
+    compType: 'input',
+  },
+  {
+    key: 'startTime',
+    title: '开始时间',
+    compType: 'date',
+    showTime: true,
+  },
+  {
+    key: 'endTime',
+    title: '结束时间',
+    compType: 'date',
+    showTime: true,
+  },
+  {
+    key: 'phoneNumber',
+    title: '联系人电话',
+    compType: 'input',
+    dataType: 'tel',
+  },
+  {
+    key: 'posterUrl',
+    title: '活动海报',
+    compType: 'imagePicker',
+    mode: 'multiple',
+    ossDir: 'event/',
+  },
+  {
+    key: 'maxCount',
+    title: '最多容纳',
+    compType: 'input',
+    dataType: 'number',
+  },
+  {
+    key: 'deposit',
+    title: '订金',
+    compType: 'input',
+    dataType: 'number',
+  },
+  {
+    key: 'total',
+    title: '总价',
+    compType: 'input',
+    dataType: 'number',
+  },
+  {
+    key: 'storeId',
+    title: '场地',
+    compType: 'select',
+    asyncUrl: '/api/admin/store/option',
   },
 ];
 
@@ -94,14 +143,6 @@ export default observer(() => {
       title: '场地名',
       dataIndex: 'storeId.name',
     },
-    {
-      title: '是否精选？',
-      dataIndex: 'isSelective',
-      render(val) {
-        return val ? 'Y' : 'N';
-      },
-    },
-
     {
       title: '状态',
       dataIndex: 'status',
@@ -159,6 +200,15 @@ export default observer(() => {
     onModalVisible: () => setUpdateVisible(false),
     onOk: () => {
       setUpdateVisible(false);
+      EventStore.PutItemRequest(selectedItem._id, updatedValue);
+    }
+    ,
+  };
+
+  const reviewFormMethods = {
+    onModalVisible: () => setReviewVisible(false),
+    onOk: () => {
+      setReviewVisible(false);
       EventStore.PutItemRequest(selectedItem._id, updatedValue);
     }
     ,
@@ -223,7 +273,7 @@ export default observer(() => {
           value={selectedItem}
           formItemList={reviewFormList}
           title="审核活动"
-          {...updateFormMethods}
+          {...reviewFormMethods}
           modalVisible={reviewVisible}
           onValuesChange={setUpdatedValue}
         />
