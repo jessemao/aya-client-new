@@ -13,6 +13,34 @@ class DoorQrcodeStore extends BaseStore {
 
   @observable selectedQrcode = {};
 
+  @action FetchQrcodeByReservation = async (reservationId) => {
+    let res = {};
+    try {
+      res = await fetch({
+        method: 'GET',
+        url: '/api/admin/reservation-record/qrcode',
+        params: {
+          reservationId,
+        },
+      });
+    } catch (e) {
+      res = e;
+    }
+
+    runInAction(() => {
+      if (res.status !== 200 || !res.data.success) {
+        const errMsg = (res.response ? (res.response.data.message || res.response.data) : res.message) || res.data.errorMsg;
+        asyncFeedback.error(errMsg);
+        this.selectedQrcode = undefined;
+      } else {
+        this.selectedQrcode = {
+          qrcodeData: res.data.data,
+        };
+      }
+    });
+  }
+
+
   @action FetchQrcodeById = async (accountId, deviceId) => {
     let res = {};
     try {

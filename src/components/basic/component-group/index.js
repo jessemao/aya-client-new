@@ -32,6 +32,8 @@ class GroupComponent extends Component {
 
   convertValueByMode(props) {
     const { mode, value } = props;
+    // console.log('value', value);
+    // console.log('mode', mode);
     if (mode === 'map' && value && isObject(value)) {
       if (!Object.keys(value).length) {
         return [''];
@@ -62,9 +64,13 @@ class GroupComponent extends Component {
   handleChange(val, options) {
     const { onChange } = this.props;
     const tempValue = this.state.value;
-    const { index } = options;
+    const { index } = options || {};
     const changeValue = val;
-    tempValue[index] = { ...tempValue[index], ...changeValue };
+    if (typeof tempValue[index] === 'object') {
+      tempValue[index] = { ...tempValue[index], ...changeValue };
+    } else {
+      tempValue[index] = changeValue;
+    }
     this.setState({
       value: tempValue,
     });
@@ -116,7 +122,7 @@ class GroupComponent extends Component {
             {...others}
             data-index={index}
             value={val}
-            onChange={this.handleChange}
+            onChange={(v) => this.handleChange(v, { index })}
           />
         </Col>
         <Col

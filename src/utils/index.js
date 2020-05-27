@@ -1,7 +1,7 @@
 import { pathToRegexp } from 'path-to-regexp';
 import numeral from 'numeral';
 import moment from 'moment';
-import BraftEditor from 'braft-editor';
+// import BraftEditor from 'braft-editor';
 
 const getSearchQuery = (key) => {
   const searchUrl = window.location.search;
@@ -22,7 +22,7 @@ const getSearchQuery = (key) => {
 function getFormInitValue(formList, valueMap = {}) {
   const initValues = {};
   formList.forEach((item) => {
-    const value = GetValueByKey(valueMap, item.key);
+    const value = GetValueByKey(valueMap, item.key, item.compType);
     initValues[item.key] = value;
   });
   return initValues;
@@ -367,8 +367,7 @@ function GetValueByKey(data, key, type) {
     }
   });
 
-  // in case the value is not string for momentjs
-  if (!isNaN(Date.parse(value)) && typeof value !== 'number') {
+  if (type === 'date') {
     value = moment(value);
   }
 

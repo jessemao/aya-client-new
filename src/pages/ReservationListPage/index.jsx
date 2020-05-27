@@ -1,11 +1,13 @@
 import {
   Modal,
+  Divider,
 } from 'antd';
 import React, { useEffect, useState, Fragment } from 'react';
 import { observer } from 'mobx-react';
 import CommonListPage from '../common/CommonListPage';
 import MultiActionMenu from '../../components/MultiActionMenu';
 import { useStores } from '../../stores/hook';
+import FormModal from '../../components/FormModal';
 
 import {
   EVENT_USER_STATUS,
@@ -19,15 +21,33 @@ const multiMenuList = [
   },
 ];
 
+const qrcodeFormList = [
+  {
+    key: 'qrcodeData',
+    compType: 'image',
+    readOnly: true,
+  },
+];
+
 export default observer(() => {
-  const { ReservationRecordStore } = useStores();
+  const { ReservationRecordStore, DoorQrcodeStore } = useStores();
   // const [reviewVisible, setReviewVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [multiActionKey, setMultiActionKey] = useState('');
   const [cancelVisible, setCancelVisible] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
-  // const [updatedValue, setUpdatedValue] = useState({});
+  const [qrcodeVisible, setQrcodeVisible] = useState(false);
   const { searchQuery, currentPage, pageSize } = ReservationRecordStore;
+
+  const {
+    selectedQrcode,
+  } = DoorQrcodeStore;
+
+  const handleViewQrcode = (record) => {
+    setQrcodeVisible(true);
+    DoorQrcodeStore.FetchQrcodeByReservation(record._id);
+  };
+
 
   const columns = [
     {
@@ -59,12 +79,21 @@ export default observer(() => {
       title: '操作',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => {
-            setCancelVisible(true);
-            setSelectedItem(record);
-          }}
+          <a
+            onClick={() => {
+              setCancelVisible(true);
+              setSelectedItem(record);
+            }}
           >
             取消
+          </a>
+          <Divider type="vertical" />
+          <a
+            onClick={() => {
+              handleViewQrcode(record);
+            }}
+          >
+            二维码
           </a>
         </Fragment>
       ),
@@ -103,6 +132,13 @@ export default observer(() => {
     }
   }, [cancelVisible]);
 
+  const qrcodeFormMethods = {
+    onModalVisible: () => setQrcodeVisible(false),
+    onOk: () => {
+      setQrcodeVisible(false);
+    },
+  };
+
   return (
     <PageHeaderWrapper>
       <CommonListPage
@@ -116,6 +152,13 @@ export default observer(() => {
         store={ReservationRecordStore}
         columns={columns}
         showCreateBtn={false}
+      />
+      <FormModal
+        title="门禁二维码"
+        value={selectedQrcode}
+        formItemList={qrcodeFormList}
+        {...qrcodeFormMethods}
+        modalVisible={qrcodeVisible}
       />
     </PageHeaderWrapper>
   );
