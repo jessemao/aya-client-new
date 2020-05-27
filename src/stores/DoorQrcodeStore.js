@@ -34,7 +34,7 @@ class DoorQrcodeStore extends BaseStore {
         this.selectedQrcode = undefined;
       } else {
         this.selectedQrcode = {
-          qrcodeData: res.data.data,
+          qrcodeData: res.data.data.qrcodeData,
         };
       }
     });
