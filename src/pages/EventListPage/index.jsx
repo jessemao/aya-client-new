@@ -244,7 +244,7 @@ export default observer(() => {
     },
     onOk: () => {
       setDescriptionVisible(false);
-      EventDescriptionStore.PutItemByQuery({ storeId: selectedItem._id }, { description: updatedDescValue.description });
+      EventDescriptionStore.PutItemByQuery({ eventId: selectedItem._id }, { description: updatedDescValue.description });
     },
   };
 
