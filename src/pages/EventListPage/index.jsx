@@ -114,6 +114,19 @@ const reviewFormList = [
   },
 ];
 
+const descriptionFormList = [
+  {
+    key: 'description',
+    compType: 'richtext',
+    ossDir: 'event_description',
+    layout: {
+      wrapperCol: {
+        span: 24,
+      },
+    },
+  },
+];
+
 const multiMenuList = [
   {
     key: 'delete',
@@ -123,7 +136,7 @@ const multiMenuList = [
 
 
 export default observer(() => {
-  const { EventStore } = useStores();
+  const { EventStore, EventDescriptionStore } = useStores();
   const [addVisible, setAddVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
   const [reviewVisible, setReviewVisible] = useState(false);
@@ -131,8 +144,10 @@ export default observer(() => {
   const [multiActionKey, setMultiActionKey] = useState('');
   const [selectedRows, setSelectedRows] = useState([]);
   const [updatedValue, setUpdatedValue] = useState({});
+  const [updatedDescValue, setUpdatedDescValue] = useState({});
+  const [descriptionVisible, setDescriptionVisible] = useState(false);
   const { searchQuery, currentPage, pageSize } = EventStore;
-
+  const { selectedItem: selectedDescItem } = EventDescriptionStore;
 
   const columns = [
     {
@@ -177,6 +192,16 @@ export default observer(() => {
           >
             审核
           </a>
+          <Divider type="vertical" />
+          <a
+            onClick={() => {
+              setDescriptionVisible(true);
+              EventDescriptionStore.FindByEvent(record);
+              return setSelectedItem(record);
+            }}
+          >
+            详情
+          </a>
         </Fragment>
       ),
     },
@@ -210,8 +235,17 @@ export default observer(() => {
     onOk: () => {
       setReviewVisible(false);
       EventStore.PutItemRequest(selectedItem._id, updatedValue);
-    }
-    ,
+    },
+  };
+
+  const descriptionFormMethods = {
+    onModalVisible: () => {
+      setDescriptionVisible(false);
+    },
+    onOk: () => {
+      setDescriptionVisible(false);
+      EventDescriptionStore.PutItemByQuery({ storeId: selectedItem._id }, { description: updatedDescValue.description });
+    },
   };
 
   useEffect(() => {
@@ -276,6 +310,16 @@ export default observer(() => {
           {...reviewFormMethods}
           modalVisible={reviewVisible}
           onValuesChange={setUpdatedValue}
+        />
+        <FormModal
+          title="详情"
+          width={1000}
+          value={selectedDescItem}
+          maskClosable={false}
+          formItemList={descriptionFormList}
+          {...descriptionFormMethods}
+          modalVisible={descriptionVisible}
+          onValuesChange={setUpdatedDescValue}
         />
       </CommonListPage>
     </PageHeaderWrapper>
