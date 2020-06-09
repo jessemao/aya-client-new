@@ -29,6 +29,10 @@ const SUB_NAV_ROUTES = {
     path: '/event/event-list',
     name: '列表',
   },
+  EVENT_ATTENDEE_LIST: {
+    path: '/event/event-attendee-list',
+    name: '报名人列表',
+  },
   STORE_LIST: {
     path: '/store/store-list',
     name: '场地列表',
@@ -94,6 +98,7 @@ const NAV_ROUTES = {
     accessRole: ACCOUNT_ROLE.PLATFORM,
     children: [
       SUB_NAV_ROUTES.EVENT_LIST,
+      SUB_NAV_ROUTES.EVENT_ATTENDEE_LIST,
     ],
   },
   // EDITABLE_PAGE: {
@@ -111,7 +116,6 @@ const NAV_ROUTES = {
   ACCOUNT_PAGE: {
     path: '/account',
     name: '用户管理',
-    accessRole: ACCOUNT_ROLE.ADMIN,
     accessRole: ACCOUNT_ROLE.ADMIN,
     children: [
       SUB_NAV_ROUTES.ACCOUNT_LIST,

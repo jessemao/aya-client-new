@@ -11,6 +11,23 @@ const REVIEW_STATUS_LIST = [
   '未审批', '通过', '审批中', '拒绝', '撤销', '失效',
 ];
 
+const EVENT_USER_STATUS_LIST = [
+  '已签到', '正在进行', '已参加', '已报名', '已取消', '已过期', '待支付', '待定', '失效', '提醒',
+];
+
+const EVENT_USER_STATUS = {
+  100: EVENT_USER_STATUS_LIST[0],
+  101: EVENT_USER_STATUS_LIST[1],
+  102: EVENT_USER_STATUS_LIST[2],
+  3: EVENT_USER_STATUS_LIST[3],
+  9: EVENT_USER_STATUS_LIST[4],
+  6: EVENT_USER_STATUS_LIST[5],
+  1: EVENT_USER_STATUS_LIST[6],
+  103: EVENT_USER_STATUS_LIST[7],
+  104: EVENT_USER_STATUS_LIST[8],
+  105: EVENT_USER_STATUS_LIST[9],
+};
+
 const ACCOUNT_ROLE = {
   ROOT: 1,
   DEVELOPER: 2,
@@ -101,5 +118,7 @@ export {
   ROLE_OPTION,
   ACCESS_ROLE,
   USER_TYPE,
+  EVENT_USER_STATUS_LIST,
+  EVENT_USER_STATUS,
   ACCESS_LEVEL,
 };
