@@ -221,7 +221,7 @@ class StepFormModal extends Component {
           initialValues={initialValues}
           onValuesChange={(changedValue, values) => {
             if (onValuesChange) {
-              onValuesChange(changedValue, values);
+              onValuesChange(values);
             }
           }}
         >

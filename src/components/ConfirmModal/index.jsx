@@ -109,7 +109,7 @@ const ConfirmModal = (props) => {
         initialValues={initialValues}
         onValuesChange={(changedValue, values) => {
           if (props.onValuesChange) {
-            props.onValuesChange(changedValue, values);
+            props.onValuesChange(values);
           }
         }}
       >
