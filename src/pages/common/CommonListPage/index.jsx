@@ -17,11 +17,11 @@ import StandardTable from '../../../components/StandardTable';
 import { getComponent } from '../../../utils/component-map';
 import styles from './index.module.less';
 
-const FormItem = Form.Item;
+// const FormItem = Form.Item;
 
-const getValue = (obj = { }) => Object.keys(obj)
-  .map((key) => obj[key])
-  .join(',');
+// const getValue = (obj = { }) => Object.keys(obj)
+//   .map((key) => obj[key])
+//   .join(',');
 
 @observer
 class CommonListPage extends Component {
@@ -58,16 +58,17 @@ class CommonListPage extends Component {
     filtersArg,
     sorter,
   ) => {
-    const filters = Object.keys(filtersArg).reduce((obj, key) => {
-      const newObj = { ...obj };
-      newObj[key] = getValue(filtersArg[key]);
-      return newObj;
-    }, {});
+    // const filters = Object.keys(filtersArg).reduce((obj, key) => {
+    //   const newObj = { ...obj };
+    //   console.log('filtersArg[key]', filtersArg[key]);
+    //   newObj[key] = getValue(filtersArg[key]);
+    //   return newObj;
+    // }, {});
 
     const params = {
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
-      ...filters,
+      // ...filters,
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;

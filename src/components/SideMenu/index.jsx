@@ -19,6 +19,7 @@ const SideMenuWrapper = (props) => {
     return menuItem.accessRole >= accountRole;
   });
   const flatMenuKeys = getFlatMenuKeys(filteredMenuData);
+
   return isMobile ? (
     <Drawer
       visible={!collapsed}

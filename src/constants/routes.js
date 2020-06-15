@@ -51,7 +51,7 @@ const SUB_NAV_ROUTES = {
   },
   RESERVATION_REFUND_LIST_PAGE: {
     path: '/reservation/refund-list',
-    name: '退款管理',
+    name: '预约管理',
   },
 };
 
@@ -88,7 +88,6 @@ const NAV_ROUTES = {
     name: '预约',
     accessRole: ACCOUNT_ROLE.PLATFORM,
     children: [
-      SUB_NAV_ROUTES.RESERVATION_GROUP,
       SUB_NAV_ROUTES.RESERVATION_REFUND_LIST_PAGE,
     ],
   },

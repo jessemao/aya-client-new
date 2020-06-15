@@ -30,6 +30,20 @@ class SideMenu extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.flatMenuKeys) {
+      return null;
+    }
+    const openKeys = getDefaultCollapsedSubMenus(nextProps);
+
+    if (openKeys !== prevState.openKeys) {
+      return {
+        openKeys,
+      };
+    }
+    return null;
+  }
+
   componentDidMount() {
     firstMount = false;
   }
