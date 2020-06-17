@@ -118,9 +118,8 @@ export default observer(() => {
                 return setSelectedItem(record);
               }}
             >
-              退款
+              退订
             </a>
-
           </Fragment>
         );
       },
@@ -134,9 +133,16 @@ export default observer(() => {
 
   const updateFormMethods = {
     onModalVisible: () => setUpdateVisible(false),
-    onOk: () => {
+    onOk: async () => {
+      if (selectedItem.refundTotal) {
+        setConfirmVisible(true);
+      } else {
+        const res = await OrderRefundStore.RefundOrder({ autoRefundable: true, orderId: selectedItem.orderId._id });
+        if (res && res.success) {
+          setUpdateVisible(false);
+        }
+      }
       // setUpdateVisible(false);
-      setConfirmVisible(true);
       // OrderRefundStore.PutItemRequest(selectedItem._id, updatedValue);
     }
     ,
@@ -144,7 +150,6 @@ export default observer(() => {
 
   const confirmMethods = {
     onOk: async (fields) => {
-      console.log('fields', fields);
       const res = await OrderRefundStore.RefundOrder({ ...fields, orderId: selectedItem.orderId._id });
       setConfirmVisible(false);
       if (res && res.success) {
