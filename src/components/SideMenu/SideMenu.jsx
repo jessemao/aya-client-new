@@ -34,9 +34,9 @@ class SideMenu extends Component {
     if (!nextProps.flatMenuKeys) {
       return null;
     }
-    const openKeys = getDefaultCollapsedSubMenus(nextProps);
 
-    if (openKeys !== prevState.openKeys) {
+    const openKeys = getDefaultCollapsedSubMenus(nextProps);
+    if (openKeys !== prevState.openKeys && prevState.openKeys[0] === '/') {
       return {
         openKeys,
       };
