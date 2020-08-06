@@ -4,16 +4,13 @@ import { getComponent } from '../../../utils/component-map';
 class MapComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = props.value;
     this.handleChange = this.handleChange.bind(this);
   }
 
 
   formatValue(val, options) {
-    const { key, type } = options;
-    this.setState({
-      [key]: val,
-    });
+    const { key } = options;
+
     return {
       [key]: val,
     };
@@ -31,11 +28,14 @@ class MapComponent extends Component {
       <div className="common-map">
         {
           childComponent.map((compProps) => {
+            const index = others['data-index'];
+            const value = others.value ? others.value[compProps.key] : null;
             const specificProps = {
-              onChange: (val) => this.handleChange(val, { ...compProps, index: others['data-index'] }),
+              onChange: (val) => this.handleChange(val, { ...compProps, index }),
               className: 'common-item-row',
-              value: this.state[compProps.key],
+              value,
             };
+
             const customProps = { ...compProps, ...specificProps };
             return getComponent(customProps);
           })

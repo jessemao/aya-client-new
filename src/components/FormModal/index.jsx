@@ -38,7 +38,6 @@ const FormModal = (props) => {
 
   const initialValues = getFormInitValue(formItemList, value);
   // form.setFieldsValue(initialValues);
-
   useEffect(() => {
     if (initialed) {
       form.setFieldsValue(initialValues);
