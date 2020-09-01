@@ -93,6 +93,10 @@ export default observer(() => {
     {
       key: ['accountId', 'basicInfo', 'phoneNumber'],
       title: '联系方式',
+      render(val, record) {
+        const { accountId } = record;
+        return accountId.basicInfo.phoneNumber;
+      },
     },
     {
       title: '场地',
