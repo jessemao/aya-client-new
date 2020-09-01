@@ -85,16 +85,14 @@ export default observer(() => {
     {
       key: ['accountId', 'basicInfo'],
       title: '用户名',
-      render(val) {
-        return val.fullname || val.nickName;
+      render(val, record) {
+        const { accountId } = record;
+        return accountId.basicInfo.fullname || accountId.basicInfo.nickName;
       },
     },
     {
-      key: ['accountId', 'basicInfo'],
+      key: ['accountId', 'basicInfo', 'phoneNumber'],
       title: '联系方式',
-      render(val) {
-        return val.phoneNumber;
-      },
     },
     {
       title: '场地',
