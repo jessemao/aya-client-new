@@ -225,12 +225,12 @@ const reviewFormList = [
   },
 ];
 
-const multiMenuList = [
-  {
-    key: 'delete',
-    title: '删除',
-  },
-];
+// const multiMenuList = [
+//   {
+//     key: 'delete',
+//     title: '删除',
+//   },
+// ];
 
 
 export default observer(() => {
@@ -437,12 +437,6 @@ export default observer(() => {
   return (
     <PageHeaderWrapper>
       <CommonListPage
-        multiActionMenu={(
-          <MultiActionMenu
-            onClick={setMultiActionKey}
-            menuList={multiMenuList}
-          />
-        )}
         searchItemList={searchItemList}
         onSearch={handleSearch}
         onSelectRow={setSelectedRows}
