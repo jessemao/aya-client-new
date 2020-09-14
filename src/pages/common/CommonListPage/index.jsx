@@ -248,7 +248,7 @@ class CommonListPage extends Component {
                 }
                 <span>
                   {
-                    !!(multiActionMenu) && (
+                    !!(multiActionMenu && multiActionMenu.length) && (
                     <Dropdown overlay={multiActionMenu}>
                       <Button>
                         更多操作
