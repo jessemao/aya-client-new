@@ -35,6 +35,7 @@ const formItemList = [
     title: '预约时间',
     compType: 'span',
   },
+
   {
     key: 'storeId.name',
     title: '场地名',
@@ -80,6 +81,22 @@ export default observer(() => {
     {
       title: '预约时间',
       dataIndex: 'timeRangeText',
+    },
+    {
+      key: ['accountId', 'basicInfo'],
+      title: '用户名',
+      render(val, record) {
+        const { accountId } = record;
+        return accountId.basicInfo.fullname || accountId.basicInfo.nickName;
+      },
+    },
+    {
+      key: ['accountId', 'basicInfo', 'phoneNumber'],
+      title: '联系方式',
+      render(val, record) {
+        const { accountId } = record;
+        return accountId.basicInfo.phoneNumber;
+      },
     },
     {
       title: '场地',
