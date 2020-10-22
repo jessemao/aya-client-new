@@ -18,7 +18,6 @@ import {
 import PageHeaderWrapper from '../../components/PageHeaderWrapper';
 import { STORE_TYPE_LIST, STORE_TYPE_MAP } from '../../constants';
 
-
 const searchItemList = [
   {
     key: 'name',
@@ -232,7 +231,6 @@ const reviewFormList = [
 //   },
 // ];
 
-
 export default observer(() => {
   const { StoreStore, StoreDescriptionStore } = useStores();
   const [addVisible, setAddVisible] = useState(false);
@@ -242,7 +240,7 @@ export default observer(() => {
   const [workinghourVisible, setWorkinghourVisible] = useState(false);
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const [multiActionKey, setMultiActionKey] = useState('');
+  // const [multiActionKey, setMultiActionKey] = useState('');
   const [selectedRows, setSelectedRows] = useState([]);
   const [updatedValue, setUpdatedValue] = useState({});
   const [updatedDescValue, setUpdatedDescValue] = useState({});
@@ -355,7 +353,6 @@ export default observer(() => {
     StoreStore.SetAttributeByName('searchQuery', sq);
   };
 
-
   const createFormMethods = {
     onOk: (item) => {
       StoreStore.PostItemRequest(item);
@@ -415,24 +412,23 @@ export default observer(() => {
 
   const stepTitle = ['基本信息', '地址'];
 
-
   useEffect(() => {
     StoreStore.Search(searchQuery);
   }, [JSON.stringify(searchQuery), currentPage, pageSize]);
 
-  useEffect(() => {
-    if (multiActionKey === 'delete') {
-      Modal.confirm({
-        title: '是否删除',
-        content: `是否确认删除您已选中的${selectedRows.length}条数据`,
-        onOk: () => {
-          const selectedIds = selectedRows.map((row) => row._id);
-          StoreStore.DeleteMultipleItems(selectedIds);
-        },
-      });
-    }
-    setMultiActionKey('');
-  }, [multiActionKey]);
+  // useEffect(() => {
+  //   if (multiActionKey === 'delete') {
+  //     Modal.confirm({
+  //       title: '是否删除',
+  //       content: `是否确认删除您已选中的${selectedRows.length}条数据`,
+  //       onOk: () => {
+  //         const selectedIds = selectedRows.map((row) => row._id);
+  //         StoreStore.DeleteMultipleItems(selectedIds);
+  //       },
+  //     });
+  //   }
+  //   setMultiActionKey('');
+  // }, [multiActionKey]);
 
   return (
     <PageHeaderWrapper>
