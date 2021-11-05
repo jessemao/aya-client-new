@@ -1,10 +1,10 @@
 .PHONY: build
 
 install:
-	cnpm install
+	yarn install
 
 build: install
 	npm run build
 
-build-image:
-	docker build -f Dockerfile.dev -t ncp/admin-client:dev .
+build-image: build
+	docker build -f Dockerfile -t aya/aya-client:latest .
